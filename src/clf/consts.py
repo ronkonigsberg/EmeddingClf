@@ -1,3 +1,10 @@
+from os import path
+
+
+BASE_DIR = path.dirname(path.dirname(path.dirname(__file__)))
+RESOURCES_DIR = path.join(BASE_DIR, 'resources')
+
+
 EMBEDDINGS_FILE_PATH = '/Users/konix/Workspace/GloVe-1.2/yelp_vectors.txt'
 WORDS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.words"
 VECTORS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.vectors"
@@ -6,8 +13,8 @@ CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/yelp_classifica
 
 
 WORD_TYPE_TO_LIST = {
-    'positive': '/Users/konix/positive.txt',
-    'negative': '/Users/konix/negative.txt'
+    'positive': path.join(RESOURCES_DIR, 'positive.txt'),
+    'negative': path.join(RESOURCES_DIR, 'negative.txt'),
 }
 
 
