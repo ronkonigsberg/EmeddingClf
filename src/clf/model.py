@@ -5,8 +5,10 @@ from pycnn import Model, AdamTrainer, renew_cg, lookup, parameter, tanh, squared
 
 
 class TypeClassifier(object):
-    WORD_DIM = 50
-    HIDDEN_DIM = 25
+    # WORD_DIM = 100
+    # HIDDEN_DIM = 25
+    WORD_DIM = 300
+    HIDDEN_DIM = 50
 
     def __init__(self, word_indexer, type_indexer, external_word_embeddings=None):
         self.word_indexer = word_indexer
