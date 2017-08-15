@@ -29,14 +29,15 @@ def main():
         for word_text in word_list:
             word_to_type[word_text] = [word_type]
 
-    for word_text in NLTK_STOP_WORDS:
-        if word_text in external_word_embeddings:
-            word_to_type[word_text] = []
-
-    common_words = open(COMMON_WORDS_FILE_PATH, 'rb').read().split('\n')
-    for word_text in common_words:
-        if word_text in external_word_embeddings and word_text not in word_to_type:
-            word_to_type[word_text] = []
+    # for word_text in NLTK_STOP_WORDS:
+    #     if word_text in external_word_embeddings:
+    #         word_to_type[word_text] = []
+    #
+    # common_words = open(COMMON_WORDS_FILE_PATH, 'rb').read().split('\n')
+    # for word_text_and_count in common_words[:5000]:
+    #     word_text = word_text_and_count.rsplit(' ', 1)[0]
+    #     if word_text in external_word_embeddings and word_text not in word_to_type:
+    #         word_to_type[word_text] = []
 
     type_indexer = Indexer()
     type_indexer.index_object_list(WORD_TYPE_TO_LIST.keys())

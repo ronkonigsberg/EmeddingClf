@@ -1,7 +1,7 @@
 import random
 
 import numpy as np
-from pycnn import Model, AdamTrainer, renew_cg, lookup, parameter, tanh, squared_distance, vecInput
+from pycnn import Model, AdamTrainer, renew_cg, lookup, parameter, tanh, squared_distance, vecInput, pickneglogsoftmax
 
 
 class TypeClassifier(object):
@@ -45,6 +45,7 @@ class TypeClassifier(object):
                 expected_output_expr = vecInput(len(self.type_indexer))
                 expected_output_expr.set(expected_output)
                 sentence_error = squared_distance(out_expression, expected_output_expr)
+                # sentence_error = pickneglogsoftmax(out_expression, np.argmax(expected_output))
 
                 loss += sentence_error.scalar_value()
                 sentence_error.backward()

@@ -5,11 +5,30 @@ BASE_DIR = path.dirname(path.dirname(path.dirname(__file__)))
 RESOURCES_DIR = path.join(BASE_DIR, 'resources')
 
 
-EMBEDDINGS_FILE_PATH = '/Users/konix/Workspace/GloVe-1.2/yelp_vectors.txt'
-WORDS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.words"
-VECTORS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.vectors"
-COMMON_WORDS_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/yelp_common"
-CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/yelp_classification"
+# EMBEDDINGS_FILE_PATH = '/Users/konix/Workspace/GloVe-1.2/yelp_vectors.txt'
+# WORDS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.words"
+# VECTORS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/yelp.50d.vectors"
+# COMMON_WORDS_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/yelp_common"
+# CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/yelp_classification_2017_07_01_test2"
+
+# EMBEDDINGS_FILE_PATH = '/Users/konix/Workspace/GloVe-1.2/amazon_vectors.txt'
+# WORDS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/amazon.50d.words"
+# VECTORS_FILE_PATH = "/Users/konix/Workspace/GloVe-1.2/amazon.50d.vectors"
+# COMMON_WORDS_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/amazon_common"
+# CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/amazon_classification_2017_07_01"
+
+# EMBEDDINGS_FILE_PATH = '/Users/konix/Workspace/nerlstm/glove/glove.6B.100d.txt'
+# WORDS_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/glove.100d.words"
+# VECTORS_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/glove.100d.vectors"
+# COMMON_WORDS_FILE_PATH = None
+# CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/glove_embd"
+
+
+WORDS_FILE_PATH = "/Users/konix/embeddings_dep/deps.300d.words"
+VECTORS_FILE_PATH = "/Users/konix/embeddings_dep/deps.300d.vectors"
+EMBEDDINGS_FILE_PATH = "/Users/konix/embeddings_dep/deps.words"
+COMMON_WORDS_FILE_PATH = None
+CLASSIFICATION_FILE_PATH = "/Users/konix/Workspace/nerlstm/glove/dep_embd"
 
 
 WORD_TYPE_TO_LIST = {
