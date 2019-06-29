@@ -46,7 +46,7 @@ def main():
     word_indexer.index_object_list(external_word_embeddings.keys())
 
     my_clf = TypeClassifier(word_indexer, type_indexer, external_word_embeddings)
-    my_clf.train(word_to_type, iterations=1000)
+    my_clf.train(word_to_type, iterations=500)
 
     W = np.array(file(WORDS_FILE_PATH).read().strip().split())
     w2i = {w_: i_ for (i_, w_) in enumerate(W)}
