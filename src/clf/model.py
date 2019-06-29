@@ -1,7 +1,7 @@
 import random
 
 import numpy as np
-from pycnn import Model, AdamTrainer, renew_cg, lookup, parameter, tanh, squared_distance, vecInput, pickneglogsoftmax
+import dynet as dy
 
 
 class TypeClassifier(object):
@@ -15,21 +15,20 @@ class TypeClassifier(object):
         self.type_indexer = type_indexer
         self.external_word_embeddings = external_word_embeddings
 
-        model = Model()
-        model.add_lookup_parameters("word_lookup", (len(word_indexer), self.WORD_DIM))
+        model = dy.Model()
+        self.word_lookup = model.add_lookup_parameters((len(word_indexer), self.WORD_DIM))
 
         if external_word_embeddings:
-            word_lookup = model["word_lookup"]
             for idx in xrange(len(word_indexer)):
                 word = word_indexer.get_object(idx)
                 if word in external_word_embeddings:
-                    word_lookup.init_row(idx, external_word_embeddings[word])
+                    self.word_lookup.init_row(idx, external_word_embeddings[word])
 
-        self.param_hidden = model.add_parameters("HIDDEN", (self.HIDDEN_DIM, self.WORD_DIM))
-        self.param_out = model.add_parameters("OUT", (len(type_indexer), self.HIDDEN_DIM))
+        self.param_hidden = model.add_parameters((self.HIDDEN_DIM, self.WORD_DIM))
+        self.param_out = model.add_parameters((len(type_indexer), self.HIDDEN_DIM))
 
         self.model = model
-        self.trainer = AdamTrainer(model)
+        self.trainer = dy.AdamTrainer(model)
 
     def train(self, train_word_to_type, test_word_to_type=None, iterations=50):
         training_examples = self.build_example_vectors(train_word_to_type)
@@ -42,10 +41,10 @@ class TypeClassifier(object):
             for example_index, (word_index, expected_output) in enumerate(training_examples, 1):
                 out_expression = self.build_expression(word_index)
 
-                expected_output_expr = vecInput(len(self.type_indexer))
+                expected_output_expr = dy.vecInput(len(self.type_indexer))
                 expected_output_expr.set(expected_output)
-                sentence_error = squared_distance(out_expression, expected_output_expr)
-                # sentence_error = pickneglogsoftmax(out_expression, np.argmax(expected_output))
+                sentence_error = dy.squared_distance(out_expression, expected_output_expr)
+                # sentence_error = dy.pickneglogsoftmax(out_expression, np.argmax(expected_output))
 
                 loss += sentence_error.scalar_value()
                 sentence_error.backward()
@@ -65,10 +64,6 @@ class TypeClassifier(object):
         return examples
 
     def build_expression(self, word_index):
-        renew_cg()
-
-        H = parameter(self.param_hidden)
-        O = parameter(self.param_out)
-
-        word_vector = lookup(self.model["word_lookup"], word_index, False)
-        return O * tanh(H * word_vector)
+        dy.renew_cg()
+        word_vector = dy.lookup(self.word_lookup, word_index, update=False)
+        return self.param_out * dy.tanh(self.param_hidden * word_vector)
